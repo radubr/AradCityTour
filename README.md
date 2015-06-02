@@ -1,6 +1,9 @@
 # AradCityTour
-Despre aplicație
+About the web application
+AradCityTour is a HTML5 app that shows on a map 10 touristic places to visit in the city of Arad, Romania. The users's location changes in real time as he walks around the city.
 
+
+Despre aplicație
 AradCityTour este o aplicație HTML5 (JavaScript și CSS) care arată pe o hartă a Aradului 10 puncte turistice de vizitat. 
 
 Aplicația afișează locația utilizatorului în timp real împreună cu cele mai apropiate puncte turistice de vizitat. Primul punct fiind Gara din Arad pentru că are un trafic important de turiști. Aplicația se adresează în primul rând străinilor care tranzitează orașul Arad.
