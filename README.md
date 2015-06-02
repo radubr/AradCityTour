@@ -1,5 +1,6 @@
 # AradCityTour
 <strong>About the web application</strong>
+
 AradCityTour is a HTML5 app that shows on a map 10 touristic places to visit in the city of Arad, Romania. The users's location changes in real time as he walks around the city.
 
 
