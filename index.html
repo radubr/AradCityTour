@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AradCityTour</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+    html, body, #map-canvas {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    }
+    #legend, #legend-title {
+    font-family: Arial, sans-serif;
+    background: #fff;
+    padding: 10px;
+    margin: 10px;
+    border: 3px solid #000;
+    }
+    #legend {
+    margin-bottom: 55px;
+    }
+    #legend-title {
+    position: absolute;
+    bottom:0;
+    right:0;
+    height: 4%;
+    }
+    #legend-title h3 {
+    margin-top: 0;
+    }
+    #legend img {
+    vertical-align: middle;
+    }
+    </style>
+
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <script>
+
+    var map;
+
+function initialize() {
+    map = new google.maps.Map(document.getElementById('map-canvas'), {
+    zoom: 20,
+
+    // Style the map
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    styles:[
+    {
+    "featureType": "administrative",
+    "elementType": "labels.text.fill",
+    "stylers": [
+    {
+    "color": "#444444"
+    }
+    ]
+    },
+    {
+    "featureType": "landscape",
+    "elementType": "all",
+    "stylers": [
+    {
+    "color": "#f2f2f2"
+    }
+    ]
+    },
+    {
+    "featureType": "poi",
+    "elementType": "all",
+    "stylers": [
+    {
+    "visibility": "on"
+    }
+    ]
+    },
+    {
+    "featureType": "road",
+    "elementType": "all",
+    "stylers": [
+    {
+    "saturation": -100
+    },
+    {
+    "lightness": 45
+    }
+    ]
+    },
+    {
+    "featureType": "road.highway",
+    "elementType": "all",
+    "stylers": [
+    {
+    "visibility": "simplified"
+    }
+    ]
+    },
+    {
+    "featureType": "road.arterial",
+    "elementType": "labels.icon",
+    "stylers": [
+    {
+    "visibility": "on"
+    }
+    ]
+    },
+    {
+    "featureType": "transit",
+    "elementType": "all",
+    "stylers": [
+    {
+    "visibility": "on"
+    }
+    ]
+    },
+    {
+    "featureType": "water",
+    "elementType": "all",
+    "stylers": [
+    {
+    "color": "#46bcec"
+    },
+    {
+    "visibility": "on"
+    }
+    ]
+    }
+    ],
+    });
+
+    // Generate legend and icons
+    var iconBase = 'http://google-maps-icons.googlecode.com/files/';
+    var icons = {
+    1: {
+    name: 'Main Railway Station',
+    icon: iconBase + 'darkblue01.png'
+    },
+    2: {
+    name: 'Orthodox Church',
+    icon: iconBase + 'darkblue02.png'
+    },
+    3: {
+    name: 'Red Church',
+    icon: iconBase + 'darkblue03.png'
+    },
+    4: {
+    name: 'Cenad Palace ',
+    icon: iconBase + 'darkblue04.png'
+    },
+    5: {
+    name: 'Arad City Hall',
+    icon: iconBase + 'darkblue05.png'
+    },
+    6: {
+    name: 'Catholic Church',
+    icon: iconBase + 'darkblue06.png'
+    },
+    7: {
+    name: 'Ioan Slavici Classical Theatre',
+    icon: iconBase + 'darkblue07.png'
+    },
+    8: {
+    name: 'Avram Iancu Square',
+    icon: iconBase + 'darkblue08.png'
+    },
+    9: {
+    name: 'Reconciliation Park',
+    icon: iconBase + 'darkblue09.png'
+    },
+    10: {
+    name: 'Avram Iancu Square',
+    icon: iconBase + 'darkblue10.png'
+    },
+    0: {
+    name: 'My Location',
+    icon: iconBase + 'darkblue00.png'
+    },
+    };
+
+    function addMarker(feature) {
+    var marker = new google.maps.Marker({
+    position: feature.position,
+    icon: icons[feature.type].icon,
+    map: map
+    });
+    }
+
+    var features = [
+    {
+    position: new google.maps.LatLng(46.1895653, 21.32522),
+    type: '1'
+    }, {
+    position: new google.maps.LatLng(46.1834951, 21.3246285),
+    type: '2'
+    }, {
+    position: new google.maps.LatLng(46.1774174, 21.3200959),
+    type: '3'
+    }, {
+    position: new google.maps.LatLng(46.176105, 21.319032),
+    type: '4'
+    }, {
+    position: new google.maps.LatLng(46.1754599, 21.3192592),
+    type: '5'
+    }, {
+    position: new google.maps.LatLng(46.1722738, 21.3155264),
+    type: '6'
+    }, {
+    position: new google.maps.LatLng(46.1712615, 21.3156579),
+    type: '7'
+    }, {
+    position: new google.maps.LatLng(46.1708722, 21.3193805),
+    type: '8'
+    }, {
+    position: new google.maps.LatLng(46.1709912, 21.3086198),
+    type: '9'
+    }, {
+    position: new google.maps.LatLng(46.1701378, 21.3158746),
+    type: '10'
+    }
+
+    ];
+    features.push({
+    type: '0'
+    });
+      for (var i = 0, feature; feature = features[i]; i++) {
+    addMarker(feature);
+    }
+    var legend = document.getElementById('legend');
+    for (var key in icons) {
+    var type = icons[key];
+    var name = type.name;
+    var icon = type.icon;
+    var div = document.createElement('div');
+    div.innerHTML = '<img src="' + icon + '"> ' + name;
+    legend.appendChild(div);
+    }
+    map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
+
+  // Try HTML5 geolocation
+  if(navigator.geolocation) {
+    navigator.geolocation.watchPosition(function(position) {
+      var pos = new google.maps.LatLng(position.coords.latitude,
+                                       position.coords.longitude);
+
+      var markerMyLoc  = new google.maps.Marker ({
+        map: map,
+        position: pos,
+        icon: "http://google-maps-icons.googlecode.com/files/darkblue00.png"
+      });
+      map.setCenter(pos);
+      // Clear marker with my location every 10 seconds
+      setInterval(function () {markerMyLoc.setMap(null);}, 10000);
+
+    }, function() {
+      handleNoGeolocation(true);
+    });
+  } else {
+    // Browser doesn't support Geolocation
+    handleNoGeolocation(false);
+  }
+}
+
+function handleNoGeolocation(errorFlag) {
+  if (errorFlag) {
+    var content = 'Error: The Geolocation service failed.';
+  } else {
+    var content = 'Error: Your browser doesn\'t support geolocation.';
+  }
+  var options = {
+    map: map,
+    position: new google.maps.LatLng(60, 105),
+    content: content
+  };
+
+  var infowindow = new google.maps.InfoWindow(options);
+  map.setCenter(options.position);
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+  $( document ).ready(function() {
+// Toggle (hide or show) legend on click
+    $( "#legend-title" ).click(function() {
+    $( "#legend" ).toggle( "slow", function() {
+    });
+    });
+});
+    </script>
+  </head>
+  <body>
+    <div id="map-canvas"></div>
+    <div id="legend-title"><h3>Legend</h3></div>
+    <div id="legend"></div>
+  </body>
+</html>
